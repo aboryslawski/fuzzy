@@ -6,28 +6,28 @@ import matplotlib.pyplot as plt
 import skfuzzy as fuzz
 
 # zmienna wejsciowa: x
-x = np.linspace(0, 10, 100)
+x = np.linspace(0, 15, 150)
 
 # funkcje przynaleznosci fuzzy dla danej wejsciowej x
 inside_low = fuzz.trimf(x, [0, 0, 5])
-inside_medium = fuzz.trimf(x, [0, 5, 10])
-inside_high = fuzz.trimf(x, [5, 10, 10])
+inside_medium = fuzz.trimf(x, [0, 5, 15])
+inside_high = fuzz.trimf(x, [5, 15, 15])
 
 # zmienna wyjsciowa: y
-y = np.linspace(0, 20, 100)
+y = np.linspace(0, 20, 150)
 
 # funkcje przynaleznosci fuzzy dla danej wyjsciowej y
-outside_low = fuzz.trimf(y, [0, 0, 10])
-outside_medium = fuzz.trimf(y, [0, 10, 20])
-outside_high = fuzz.trimf(y, [10, 20, 20])
+outside_low = fuzz.trimf(y, [0, 0, 15])
+outside_medium = fuzz.trimf(y, [0, 15, 20])
+outside_high = fuzz.trimf(y, [15, 20, 20])
 
-# zasada 1: jesli x jest niskie THEN y is niskie
+# zasada 1: jesli x jest niskie to y is niskie
 rule1 = np.fmin(inside_low, outside_low)
 
-# zasada 2: jesli x jest srednie THEN y is srednie
+# zasada 2: jesli x jest srednie to y is srednie
 rule2 = np.fmin(inside_medium, outside_medium)
 
-# zasada 3: jesli x jest wysokie THEN y is wysokie
+# zasada 3: jesli x jest wysokie to y is wysokie
 rule3 = np.fmin(inside_high, outside_high)
 
 # agregacja wszystkich wyjsciowych funkcji przynaleznosci
@@ -53,7 +53,7 @@ plt.fill_between(y, 0, aggregated, facecolor='Orange', alpha=0.7)
 plt.vlines(output, 0, 1, colors='r', linestyle='dashed')
 
 plt.title('kontrola temperatury')
-plt.xlabel('Input (x) / Output (y)')
+plt.xlabel('temperatura')
 plt.ylabel('stopien przynaleznosci')
 plt.legend()
 plt.grid(True)
