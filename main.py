@@ -32,13 +32,9 @@ for a in range(10):
         napiwek = FS.inference()['napiwek']
         z.append(napiwek)
 
-X = x
-Y = y
-Z = z
-
-x = np.reshape(X, (10, 10))
-y = np.reshape(Y, (10, 10))
-z = np.reshape(Z, (10, 10))
+x = np.reshape(x, (10, 10))
+y = np.reshape(y, (10, 10))
+z = np.reshape(z, (10, 10))
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
