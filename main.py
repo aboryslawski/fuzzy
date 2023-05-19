@@ -1,3 +1,6 @@
+# installing dependencies:
+# pip3 install -r requirements.txt
+
 from simpful import *
 import numpy as np
 import matplotlib.pyplot as plt
