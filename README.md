@@ -3,6 +3,8 @@ pip3 install -r requirements.txt
 
 # DISCLAIMER
 
+All libraries used for this project can be found in `requirements.txt`.
+
 This code is using the [simpful](https://github.com/aresio/simpful) library and is largely based on one of the examples which can be found on library creators' github.
 
 
