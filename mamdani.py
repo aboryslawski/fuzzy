@@ -22,14 +22,16 @@ FS.add_rules([
 x = []
 y = []
 z = []
-
+print("jakosc_jedzenia;jakosc_serwisu;napiwek")
 for a in range(10):
     for b in range(10):
         x.append(a)
         y.append(b)
         FS.set_variable("jakosc_jedzenia", a)
         FS.set_variable("jakosc_serwisu", b)
-        napiwek = FS.inference()['napiwek']
+        napiwek = FS.inference()['napiwek'] - 4.324999667
+        if napiwek < 0:
+            napiwek = 0
         z.append(napiwek)
 
 x = np.reshape(x, (10, 10))
