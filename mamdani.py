@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 FS = FuzzySystem()
 
-TLV = AutoTriangle(3, terms=['niska', 'srednia', 'dobra'], universe_of_discourse=[0,10])
+TLV = AutoTriangle(3, terms=['niska', 'srednia', 'wysoka'], universe_of_discourse=[0,10])
 FS.add_linguistic_variable("jakosc_serwisu", TLV)
 FS.add_linguistic_variable("jakosc_jedzenia", TLV)
 
@@ -16,7 +16,7 @@ FS.add_linguistic_variable("napiwek", LinguisticVariable([O1, O2, O3], universe_
 FS.add_rules([
     "IF (jakosc_jedzenia IS niska) OR (jakosc_serwisu IS niska) THEN (napiwek IS niski)",
     "IF (jakosc_serwisu IS srednia) THEN (napiwek IS sredni)",
-    "IF (jakosc_jedzenia IS dobra) OR (jakosc_serwisu IS dobra) THEN (napiwek IS wysoki)"
+    "IF (jakosc_jedzenia IS wysoka) OR (jakosc_serwisu IS wysoka) THEN (napiwek IS wysoki)"
     ])
 
 x = []
