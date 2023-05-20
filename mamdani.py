@@ -22,7 +22,7 @@ FS.add_rules([
 x = []
 y = []
 z = []
-print("jakosc_jedzenia;jakosc_serwisu;napiwek")
+
 for a in range(10):
     for b in range(10):
         x.append(a)
