@@ -4,47 +4,60 @@ import matplotlib.pyplot as plt
 
 FS = FuzzySystem()
 
-TLV = AutoTriangle(3, terms=['niska', 'srednia', 'wysoka'], universe_of_discourse=[0,10])
-FS.add_linguistic_variable("jakosc_serwisu", TLV)
-FS.add_linguistic_variable("jakosc_jedzenia", TLV)
+triangle_1 = TriangleFuzzySet(0,5,10,   term="short")
+triangle_2 = TriangleFuzzySet(7,12,15,  term="medium")
+triangle_3 = TriangleFuzzySet(13,20,25, term="long")
+FS.add_linguistic_variable("brewing_time",
+        LinguisticVariable([triangle_1, triangle_2, triangle_3], universe_of_discourse=[0,25]))
 
-O1 = TriangleFuzzySet(0,0,13,   term="niski")
-O2 = TriangleFuzzySet(0,13,25,  term="sredni")
-O3 = TriangleFuzzySet(13,25,25, term="wysoki")
-FS.add_linguistic_variable("napiwek", LinguisticVariable([O1, O2, O3], universe_of_discourse=[0,25]))
+triangle_4 = TriangleFuzzySet(0,5,12.5,  term="low")
+triangle_5 = TriangleFuzzySet(7.5,10,17.5,  term="medium")
+triangle_6 = TriangleFuzzySet(15,20,25, term="high")
+FS.add_linguistic_variable("coffee_strength",
+        LinguisticVariable([triangle_4, triangle_5, triangle_6], universe_of_discourse=[0,25]))
+
+triangle_7 = TriangleFuzzySet(0,0,13,   term="low")
+triangle_8 = TriangleFuzzySet(0,13,25,  term="medium")
+triangle_9 = TriangleFuzzySet(13,25,25, term="low")
+FS.add_linguistic_variable("enjoyment_level",
+        LinguisticVariable([triangle_7, triangle_8, triangle_9], universe_of_discourse=[0,25]))
 
 FS.add_rules([
-    "IF (jakosc_jedzenia IS niska) OR (jakosc_serwisu IS niska) THEN (napiwek IS niski)",
-    "IF (jakosc_serwisu IS srednia) THEN (napiwek IS sredni)",
-    "IF (jakosc_jedzenia IS wysoka) OR (jakosc_serwisu IS wysoka) THEN (napiwek IS wysoki)"
+        "IF (coffee_strength IS low) AND (brewing_time IS short) THEN (enjoyment_level IS low)",
+        "IF (coffee_strength IS low) AND (brewing_time IS medium) THEN (enjoyment_level IS medium)",
+        "IF (coffee_strength IS low) AND (brewing_time IS long) THEN (enjoyment_level IS medium)",
+        "IF (coffee_strength IS medium) AND (brewing_time IS short) THEN (enjoyment_level IS medium)",
+        "IF (coffee_strength IS medium) AND (brewing_time IS medium) THEN (enjoyment_level IS high)",
+        "IF (coffee_strength IS medium) AND (brewing_time IS long) THEN (enjoyment_level IS medium)",
+        "IF (coffee_strength IS high) AND (brewing_time IS short) THEN (enjoyment_level IS medium)",
+        "IF (coffee_strength IS high) AND (brewing_time IS medium) THEN (enjoyment_level IS medium)",
+        "IF (coffee_strength IS high) AND (brewing_time IS long) THEN (enjoyment_level IS low)"
     ])
 
 x = []
 y = []
 z = []
 
-for a in range(10):
-    for b in range(10):
+for a in range(25):
+    for b in range(25):
         x.append(a)
         y.append(b)
-        FS.set_variable("jakosc_jedzenia", a)
-        FS.set_variable("jakosc_serwisu", b)
-        napiwek = FS.inference()['napiwek'] - 4.324999667
-        if napiwek < 0:
-            napiwek = 0
-        z.append(napiwek)
+        FS.set_variable("coffee_strength", a)
+        FS.set_variable("brewing_time", b)
+        enjoyment_level = FS.inference()['enjoyment_level']
+        z.append(enjoyment_level)
 
-x = np.reshape(x, (10, 10))
-y = np.reshape(y, (10, 10))
-z = np.reshape(z, (10, 10))
+x = np.reshape(x, (25, 25))
+y = np.reshape(y, (25, 25))
+z = np.reshape(z, (25, 25))
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
 ax.plot_surface(x, y, z)
 
-ax.set_xlabel('jakosc_jedzenia')
-ax.set_ylabel('jakosc_serwisu')
-ax.set_zlabel('napiwek')
+ax.set_xlabel('coffee_strength')
+ax.set_ylabel('brewing_time')
+ax.set_zlabel('enjoyment_level')
 plt.show()
 
