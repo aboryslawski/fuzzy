@@ -4,23 +4,54 @@ import matplotlib.pyplot as plt
 
 FS = FuzzySystem()
 
-triangle_1 = TriangleFuzzySet(0,5,10,   term="short")
-triangle_2 = TriangleFuzzySet(7,12,15,  term="medium")
-triangle_3 = TriangleFuzzySet(13,20,25, term="long")
+def draw_triangles(values):
+    if len(values) != 3:
+        raise ValueError("Invalid values passed to draw_triangles function")
+    x = np.linspace(0, 25, 100)  # X-axis range
+    for p in values:
+        if len(p) != 3:
+            raise ValueError("Invalid values passed to draw_triangles function")
+        a = p[0]  # Left boundary
+        b = p[1]  # Peak
+        c = p[2]  # Right boundary
+        y = np.maximum(0, np.minimum((x - a) / (b - a), (c - x) / (c - b)))
+        plt.plot(x, y)
+
+    plt.title('Triangular Membership Function')
+    plt.xlabel('X')
+    plt.ylabel('Membership Value')
+    plt.grid(True)
+    plt.show()
+
+t1 = [0, 5, 10]
+t2 = [7, 12, 15]
+t3 = [13, 20, 25]
+triangle_1 = TriangleFuzzySet(t1[0], t1[1], t1[2], term="short")
+triangle_2 = TriangleFuzzySet(t2[0], t2[1], t2[2], term="medium")
+triangle_3 = TriangleFuzzySet(t3[0], t3[1], t3[2], term="long")
+draw_triangles([t1, t2, t3])
 FS.add_linguistic_variable("brewing_time",
         LinguisticVariable([triangle_1, triangle_2, triangle_3], universe_of_discourse=[0,25]))
 
-triangle_4 = TriangleFuzzySet(0,5,12.5,  term="low")
-triangle_5 = TriangleFuzzySet(7.5,10,17.5,  term="medium")
-triangle_6 = TriangleFuzzySet(15,20,25, term="high")
+t1 = [0, 5, 12.5]
+t2 = [7.5, 12.5, 17.5]
+t3 = [15, 20, 25]
+triangle_4 = TriangleFuzzySet(t1[0], t1[1], t1[2], term="low")
+triangle_5 = TriangleFuzzySet(t2[0], t2[1], t2[2], term="medium")
+triangle_6 = TriangleFuzzySet(t3[0], t3[1], t3[2], term="high")
+draw_triangles([t1, t2, t3])
 FS.add_linguistic_variable("coffee_strength",
         LinguisticVariable([triangle_4, triangle_5, triangle_6], universe_of_discourse=[0,25]))
 
-triangle_7 = TriangleFuzzySet(0,0,13,   term="low")
-triangle_8 = TriangleFuzzySet(0,13,25,  term="medium")
-triangle_9 = TriangleFuzzySet(13,25,25, term="low")
+t1 = [0, 0, 13]
+t2 = [0, 13, 25]
+t3 = [13, 25, 25]
+triangle_7 = TriangleFuzzySet(t1[0], t1[1], t1[2], term="low")
+triangle_8 = TriangleFuzzySet(t2[0], t2[1], t2[2], term="medium")
+triangle_9 = TriangleFuzzySet(t3[0], t3[1], t3[2], term="low")
 FS.add_linguistic_variable("enjoyment_level",
-        LinguisticVariable([triangle_7, triangle_8, triangle_9], universe_of_discourse=[0,25]))
+        LinguisticVariable([triangle_7, triangle_8, triangle_9], universe_of_discourse=[0,25]), verbose=True)
+draw_triangles([t1, t2, t3])
 
 FS.add_rules([
         "IF (coffee_strength IS low) AND (brewing_time IS short) THEN (enjoyment_level IS low)",
@@ -44,7 +75,7 @@ for a in range(25):
         y.append(b)
         FS.set_variable("coffee_strength", a)
         FS.set_variable("brewing_time", b)
-        enjoyment_level = FS.inference()['enjoyment_level']
+        enjoyment_level = FS.inference(verbose=True)['enjoyment_level']
         z.append(enjoyment_level)
 
 x = np.reshape(x, (25, 25))
