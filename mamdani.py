@@ -50,7 +50,7 @@ triangle_7 = TriangleFuzzySet(t1[0], t1[1], t1[2], term="low")
 triangle_8 = TriangleFuzzySet(t2[0], t2[1], t2[2], term="medium")
 triangle_9 = TriangleFuzzySet(t3[0], t3[1], t3[2], term="low")
 FS.add_linguistic_variable("enjoyment_level",
-        LinguisticVariable([triangle_7, triangle_8, triangle_9], universe_of_discourse=[0,25]), verbose=True)
+        LinguisticVariable([triangle_7, triangle_8, triangle_9], universe_of_discourse=[0,25]), verbose=False)
 draw_triangles([t1, t2, t3])
 
 FS.add_rules([
@@ -75,7 +75,7 @@ for a in range(25):
         y.append(b)
         FS.set_variable("coffee_strength", a)
         FS.set_variable("brewing_time", b)
-        enjoyment_level = FS.inference(verbose=True)['enjoyment_level']
+        enjoyment_level = FS.inference(verbose=False)['enjoyment_level']
         z.append(enjoyment_level)
 
 x = np.reshape(x, (25, 25))
