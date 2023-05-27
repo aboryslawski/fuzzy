@@ -24,8 +24,8 @@ def draw_triangles(values):
     plt.show()
 
 t1 = [0, 5, 10]
-t2 = [7, 12, 15]
-t3 = [13, 20, 25]
+t2 = [7, 11, 15]
+t3 = [13, 19, 25]
 triangle_1 = TriangleFuzzySet(t1[0], t1[1], t1[2], term="short")
 triangle_2 = TriangleFuzzySet(t2[0], t2[1], t2[2], term="medium")
 triangle_3 = TriangleFuzzySet(t3[0], t3[1], t3[2], term="long")
@@ -33,7 +33,7 @@ draw_triangles([t1, t2, t3])
 FS.add_linguistic_variable("brewing_time",
         LinguisticVariable([triangle_1, triangle_2, triangle_3], universe_of_discourse=[0,25]))
 
-t1 = [0, 5, 12.5]
+t1 = [0, 6.25, 12.5]
 t2 = [7.5, 12.5, 17.5]
 t3 = [15, 20, 25]
 triangle_4 = TriangleFuzzySet(t1[0], t1[1], t1[2], term="low")
