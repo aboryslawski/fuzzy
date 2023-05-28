@@ -48,7 +48,7 @@ t2 = [0, 13, 25]
 t3 = [13, 25, 25]
 triangle_7 = TriangleFuzzySet(t1[0], t1[1], t1[2], term="low")
 triangle_8 = TriangleFuzzySet(t2[0], t2[1], t2[2], term="medium")
-triangle_9 = TriangleFuzzySet(t3[0], t3[1], t3[2], term="low")
+triangle_9 = TriangleFuzzySet(t3[0], t3[1], t3[2], term="high")
 FS.add_linguistic_variable("enjoyment_level",
         LinguisticVariable([triangle_7, triangle_8, triangle_9], universe_of_discourse=[0,25]), verbose=False)
 draw_triangles([t1, t2, t3])
